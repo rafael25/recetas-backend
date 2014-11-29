@@ -6,6 +6,7 @@
 package recetas.backend.model;
 
 import java.io.IOException;
+import java.io.Serializable;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -21,6 +22,9 @@ public abstract class DAO {
 	
 	public abstract String buscar() throws IOException;
 	public abstract String buscar(Integer id) throws IOException;
+	public abstract String guardar(Object entity) throws IOException;
+	public abstract String actualizar(Object entity) throws IOException;
+	public abstract String borrar(Object entity) throws IOException;
 	
 	
 	protected void openBegin() {
