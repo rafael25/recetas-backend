@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Map;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -34,8 +35,38 @@ public class DAORecetas extends DAO {
 	}
 
 	@Override
-	public String buscar(Integer id) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	public String buscar(Integer id) throws IOException {
+		Criteria cricri = this.session.createCriteria(Recetas.class).add(Restrictions.idEq(id));
+		ObjectMapper mapper = new ObjectMapper();
+		Recetas r = (Recetas) cricri.uniqueResult();
+		
+		this.closeCommit();
+		return mapper.writeValueAsString(r);
 	}
-	
+
+	@Override
+	public String guardar(Object entity) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Recetas r = (Recetas) entity;
+		this.session.save(r);
+		this.closeCommit();
+		return mapper.writeValueAsString(r);
+	}
+
+	@Override
+	public String actualizar(Object entity) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Recetas r = (Recetas) entity;
+		this.session.update(r);
+		this.closeCommit();
+		return mapper.writeValueAsString(r);
+	}
+
+	@Override
+	public String borrar(Object entity) throws IOException {
+		Recetas r = (Recetas) entity;
+		this.session.delete(r);
+		this.closeCommit();
+		return "";
+	}
 }
