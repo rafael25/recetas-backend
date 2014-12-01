@@ -5,13 +5,31 @@
  */
 package recetas.backend.controller;
 
+import java.io.IOException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import recetas.backend.model.DAORecetas;
 
 /**
  *
  * @author rafael
  */
 @Controller
+@RequestMapping("/recetas")
 public class RecetasController {
-    
+	
+	@RequestMapping(method = RequestMethod.GET, headers = {"Accept=Application/json;Content-Type:Application/json; charset=utf-8"})
+    public @ResponseBody String index() throws IOException {
+		DAORecetas dao = new DAORecetas();
+		return dao.buscar();
+	}
+	
+	@RequestMapping(value = "/{id}",method = RequestMethod.GET, headers = {"Accept=Application/json;Content-Type:Application/json; charset=utf-8"})
+    public @ResponseBody String show(@PathVariable Integer id) throws IOException {
+		DAORecetas dao = new DAORecetas();
+		return dao.buscar(id);
+	}
 }
