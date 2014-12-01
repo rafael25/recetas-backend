@@ -8,10 +8,12 @@ package recetas.backend.model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import recetas.backend.json.Receta;
 
 /**
  *
@@ -39,9 +41,13 @@ public class DAORecetas extends DAO {
 		Criteria cricri = this.session.createCriteria(Recetas.class).add(Restrictions.idEq(id));
 		ObjectMapper mapper = new ObjectMapper();
 		Recetas r = (Recetas) cricri.uniqueResult();
+		Receta rJson = new Receta(r);
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		map.put("receta", rJson);
+		map.put("categorias", r.getCategoriasList());
 		
 		this.closeCommit();
-		return mapper.writeValueAsString(r);
+		return mapper.writeValueAsString(map);
 	}
 
 	@Override
