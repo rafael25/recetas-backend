@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +48,7 @@ public class Recetas implements Serializable {
 	private Integer tiempoPrep;
 	@Column(name = "rendimiento")
 	private String rendimiento;
-	@ManyToMany(mappedBy = "recetasList")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "recetasList")
 	@JsonIgnore
 	private List<Categorias> categoriasList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idReceta")
