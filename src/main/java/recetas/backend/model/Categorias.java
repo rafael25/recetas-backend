@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Categorias implements Serializable {
 	@JoinTable(name = "categoria_receta", joinColumns = {
     	@JoinColumn(name = "id_categoria", referencedColumnName = "id")}, inverseJoinColumns = {
     	@JoinColumn(name = "id_receta", referencedColumnName = "id")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Recetas> recetasList;
 

@@ -48,10 +48,10 @@ public class Recetas implements Serializable {
 	private Integer tiempoPrep;
 	@Column(name = "rendimiento")
 	private String rendimiento;
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "recetasList")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "recetasList")
 	@JsonIgnore
 	private List<Categorias> categoriasList;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idReceta")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "idReceta")
 	@JsonIgnore
 	private List<Imagenes> imagenesList;
 
