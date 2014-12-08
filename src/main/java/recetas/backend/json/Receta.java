@@ -5,7 +5,9 @@
  */
 package recetas.backend.json;
 
+import java.util.Arrays;
 import recetas.backend.model.Categorias;
+import recetas.backend.model.Imagenes;
 import recetas.backend.model.Recetas;
 
 /**
@@ -21,6 +23,9 @@ public class Receta {
 	private Integer tiempoPrep;
 	private String rendimiento;
 	private int[] categorias;
+	private int[] imagenes;
+	
+	public Receta() {}
 
 	public Receta(Recetas r) {
 		this.id = r.getId();
@@ -31,11 +36,18 @@ public class Receta {
 		this.tiempoPrep = r.getTiempoPrep();
 		this.rendimiento = r.getRendimiento();
 		this.categorias = new int[r.getCategoriasList().size()];
+		this.imagenes = new int[r.getImagenesList().size()];
 		
 		int i = 0;
 		for (Categorias c : r.getCategoriasList()) {
 			this.categorias[i] = c.getId();
 			i += 1;
+		}
+		
+		int j = 0;
+		for (Imagenes img : r.getImagenesList()) {
+			this.imagenes[j] = img.getId();
+			j += 1;
 		}
 	}
 
@@ -101,5 +113,18 @@ public class Receta {
 
 	public void setCategorias(int[] categorias) {
 		this.categorias = categorias;
+	}
+
+	public int[] getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(int[] imagenes) {
+		this.imagenes = imagenes;
+	}
+
+	@Override
+	public String toString() {
+		return "Receta{" + "id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", ingredientes=" + ingredientes + ", preparacion=" + preparacion + ", tiempoPrep=" + tiempoPrep + ", rendimiento=" + rendimiento + ", categorias=" + Arrays.toString(categorias) + ", imagenes=" + Arrays.toString(imagenes) + '}';
 	}
 }
