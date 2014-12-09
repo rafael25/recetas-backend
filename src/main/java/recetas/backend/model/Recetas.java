@@ -51,7 +51,7 @@ public class Recetas implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "recetasList")
 	@JsonIgnore
 	private List<Categorias> categoriasList;
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "idReceta")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "receta")
 	@JsonIgnore
 	private List<Imagenes> imagenesList;
 

@@ -6,6 +6,7 @@
 package recetas.backend.json;
 
 import java.util.Arrays;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import recetas.backend.model.Categorias;
 import recetas.backend.model.Imagenes;
 import recetas.backend.model.Recetas;
@@ -49,6 +50,16 @@ public class Receta {
 			this.imagenes[j] = img.getId();
 			j += 1;
 		}
+	}
+	
+	public Receta(Recetas r, boolean conRelaciones) {
+		this.id = r.getId();
+		this.nombre = r.getNombre();
+		this.descripcion = r.getDescripcion();
+		this.ingredientes = r.getIngredientes();
+		this.preparacion = r.getPreparacion();
+		this.tiempoPrep = r.getTiempoPrep();
+		this.rendimiento = r.getRendimiento();
 	}
 
 	public Integer getId() {
@@ -123,6 +134,7 @@ public class Receta {
 		this.imagenes = imagenes;
 	}
 	
+	@JsonIgnore
 	public Recetas getRecetas() {
 		Recetas receta = new Recetas();
 		receta.setNombre(this.nombre);

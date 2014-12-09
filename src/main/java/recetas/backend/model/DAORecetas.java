@@ -7,7 +7,6 @@ package recetas.backend.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -67,8 +66,13 @@ public class DAORecetas extends DAO {
 		ObjectMapper mapper = new ObjectMapper();
 		Recetas r = (Recetas) entity;
 		this.session.save(r);
+		
+		Receta rJson = new Receta(r, false);
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		map.put("receta", rJson);
+		
 		this.closeCommit();
-		return mapper.writeValueAsString(r);
+		return mapper.writeValueAsString(map);
 	}
 
 	@Override
@@ -86,5 +90,12 @@ public class DAORecetas extends DAO {
 		this.session.delete(r);
 		this.closeCommit();
 		return "";
+	}
+	
+	public Recetas buscarReceta(Integer id) {
+		Criteria cricri = this.session.createCriteria(Recetas.class).add(Restrictions.idEq(id));
+		Recetas r = (Recetas) cricri.uniqueResult();
+		this.closeCommit();
+		return r;
 	}
 }
