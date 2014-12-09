@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import recetas.backend.json.Receta;
 import recetas.backend.model.DAORecetas;
+import recetas.backend.model.Recetas;
 
 /**
  *
@@ -40,8 +41,11 @@ public class RecetasController {
 	@RequestMapping(method = RequestMethod.POST, headers = {"Accept=Application/json;Content-Type:Application/json; charset=utf-8"})
 	public @ResponseBody String save(@RequestBody String data) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
+		DAORecetas dao = new DAORecetas();
 		JsonNode jnode = mapper.readValue(data, JsonNode.class);
 		Receta r = mapper.readValue(jnode.get("receta"), Receta.class);
-		return r.toString();
+		
+		Recetas receta = r.getRecetas();
+		return dao.guardar(receta);
 	}
 }

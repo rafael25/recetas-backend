@@ -122,6 +122,17 @@ public class Receta {
 	public void setImagenes(int[] imagenes) {
 		this.imagenes = imagenes;
 	}
+	
+	public Recetas getRecetas() {
+		Recetas receta = new Recetas();
+		receta.setNombre(this.nombre);
+		receta.setDescripcion(this.descripcion);
+		receta.setIngredientes(this.ingredientes);
+		receta.setPreparacion(this.preparacion);
+		receta.setTiempoPrep(this.tiempoPrep);
+		receta.setRendimiento(this.rendimiento);
+		return receta;
+	}
 
 	@Override
 	public String toString() {
