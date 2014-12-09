@@ -35,7 +35,7 @@ public class Imagenes implements Serializable {
 	@JoinColumn(name = "id_receta", referencedColumnName = "id")
     @ManyToOne(optional = false)
 	@JsonIgnore
-	private Recetas idReceta;
+	private Recetas receta;
 
 	public Imagenes() {
 	}
@@ -60,12 +60,12 @@ public class Imagenes implements Serializable {
 		this.url = url;
 	}
 
-	public Recetas getIdReceta() {
-		return idReceta;
+	public Recetas getReceta() {
+		return receta;
 	}
 
-	public void setIdReceta(Recetas idReceta) {
-		this.idReceta = idReceta;
+	public void setReceta(Recetas receta) {
+		this.receta = receta;
 	}
 
 	@Override

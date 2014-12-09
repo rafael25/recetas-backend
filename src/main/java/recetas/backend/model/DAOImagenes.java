@@ -53,8 +53,9 @@ public class DAOImagenes extends DAO {
 		ObjectMapper mapper = new ObjectMapper();
 		Imagenes i = (Imagenes) entity;
 		this.session.save(i);
+		Map<String, Imagenes> map = Collections.singletonMap("imagen", i);
 		this.closeCommit();
-		return mapper.writeValueAsString(i);
+		return mapper.writeValueAsString(map);
 	}
 
 	@Override
